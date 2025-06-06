@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <head>
+    <!-- otras etiquetas meta, título, etc. -->
+  
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #fefefe;
+        padding: 2rem;
+        color: #333;
+      }
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 1rem;
+        padding: 1rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+        cursor: pointer;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+      }
+      .icon {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+      .title {
+        font-weight: bold;
+        text-align: center;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+      .text {
+        font-size: 0.95rem;
+        display: none;
+        text-align: center;
+      }
+      .text.visible {
+        display: block;
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  
+  <meta charset="UTF-8" />
+  <title>Gatopedia: La Enciclopedia Felina</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fefefe;
+      color: #333;
+    }
+
+    header {
+      background-color: #ffaec9;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #ffdde1;
+      gap: 1rem;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      cursor: pointer;
+      padding: 10px 20px;
+      background-color: #fff;
+      color: #e91e63;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: #ffe0ec;
+    }
+
+    section {
+      display: none;
+      padding: 20px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    h2 {
+      color: #e91e63;
+    }
+
+    .razas-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 20px;
+    }
+
+    .gato-card {
+      width: 200px;
+      background: #fff0f6;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .gato-card:hover {
+      transform: scale(1.05);
+    }
+
+    .gato-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .gato-card .info {
+      padding: 10px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 400px;
+      text-align: center;
+      animation: zoomIn 0.3s ease;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      cursor: pointer;
+      font-size: 24px;
+      color: #888;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.7);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🐱 Gatopedia</h1>
+    <p>La Enciclopedia Felina que necesitas</p>
+  </header>
+  <nav>
+    <a onclick="showSection('razas')">Razas</a>
+    <a onclick="showSection('cuidados')">Cuidados</a>
+    <a onclick="showSection('curiosidades')">Curiosidades</a>
+    <a onclick="showSection('interaccion')">Interacción</a>
+  </nav>
+
+  <section id="razas" class="active">
+    <h2>Razas de Gatos</h2>
+    <div class="razas-container">
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('Siamés', 'El Siamés es conocido por su personalidad vocal y cariñosa. Tiene un pelaje corto y ojos azules intensos.')"
+      >
+        <img src="https://clinicaveterinarium.es/wp-content/uploads/2023/11/lindo-gatito-gato-siames-interior.jpg" alt="Gato Siamés" />
+        <div class="info"><strong>Siamés</strong></div>
+      </div>
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('Persa', 'El gato Persa tiene un pelaje largo y denso. Es tranquilo y le encanta relajarse en casa.')"
+      >
+        <img src="https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg" alt="Gato Persa" />
+        <div class="info"><strong>Persa</strong></div>
+      </div>
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('Maine Coon', 'El Maine Coon es una de las razas más grandes. Es juguetón, sociable y muy inteligente.')"
+      >
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/%D0%A4%D0%BE%D1%82%D0%BE_%D0%BA%D1%83%D0%BD%D0%BE%D0%B2.jpg/960px-%D0%A4%D0%BE%D1%82%D0%BE_%D0%BA%D1%83%D0%BD%D0%BE%D0%B2.jpg" alt="Maine Coon" />
+        <div class="info"><strong>Maine Coon</strong></div>
+      </div>
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('Ragdoll', 'El Ragdoll es un gato grande y cariñoso, conocido por su pelaje suave y su comportamiento tranquilo.')"
+      >
+        <img src="https://www.simpsonspremium.com/cdn/shop/articles/Untitled_design_14.png?v=1638192880" alt="Gato Ragdoll" />
+        <div class="info"><strong>Ragdoll</strong></div>
+      </div>
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('British Shorthair', 'El British Shorthair es robusto y dulce, con un pelaje corto y denso. Muy sociable y adaptable.')"
+      >
+        <img src="https://es.cats.com/wp-content/uploads/2020/10/British-Shorthair-cat.jpg" alt="British Shorthair" />
+        <div class="info"><strong>British Shorthair</strong></div>
+      </div>
+
+      <!-- Razas adicionales -->
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('Abisinio', 'El Abisinio es curioso, inteligente y muy activo. Tiene un pelaje corto y brillante.')"
+      >
+        <img src="https://www.webanimales.com/ficheros/2014/10/ficha-abisinio-e1418810436348.jpg" alt="Gato Abisinio" />
+        <div class="info"><strong>Abisinio</strong></div>
+      </div>
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('Scottish Fold', 'Con orejas dobladas únicas, el Scottish Fold es tranquilo y cariñoso, ideal para hogares pacíficos.')"
+      >
+        <img src="https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=1200,height=675,fit=cover/animal/breed/cat/adult/6687c811719fb656583283.jpg" alt="Gato Scottish Fold" />
+        <div class="info"><strong>Scottish Fold</strong></div>
+      </div>
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('Oriental de Pelo Corto', 'Muy parecido al Siamés, el Oriental es delgado, elegante y muy vocal. Tiene una gran variedad de colores.')"
+      >
+        <img src="https://es.cats.com/wp-content/uploads/2020/10/Oriental-Shorthair-Cat-compressed-1.jpg" alt="Oriental de Pelo Corto" />
+        <div class="info"><strong>Oriental de Pelo Corto</strong></div>
+      </div>
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('Sphynx', 'El Sphynx es conocido por su falta de pelaje y personalidad extrovertida. Necesita cuidados especiales para su piel.')"
+      >
+        <img src="https://i.guim.co.uk/img/media/6bddcc4d11116c1d28a452023ad5523012b2f572/146_619_4372_2623/master/4372.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=62620d518227d5e74123cfc09645de10" alt="Gato Sphynx" />
+        <div class="info"><strong>Sphynx</strong></div>
+      </div>
+      <div
+        class="gato-card"
+        onclick="mostrarInfo('Exótico de Pelo Corto', 'Similar al Persa pero con pelaje corto, el Exótico es tranquilo y cariñoso.')"
+      >
+        <img src="https://www.purina.es/sites/default/files/styles/ttt_image_510/public/2021-01/Exotic%20Shorthair.1.jpg?itok=srXECyD7" alt="Gato Exótico de Pelo Corto" />
+        <div class="info"><strong>Exótico de Pelo Corto</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <body>
+    <!-- otras secciones -->
+  
+    <section id="cuidados">
+      <h2>🐾 Cuidados Esenciales para tu Gato</h2>
+      <div class="card-container">
+        <!-- aquí pones las tarjetas EXACTAMENTE igual que en tu código -->
+        <div class="card">
+          <div class="icon">💧</div>
+          <div class="title">Hidratación constante</div>
+          <div class="text">Asegúrate de que siempre tenga agua limpia y fresca. Las fuentes de agua son una buena opción.</div>
+        </div>
+        <div class="card">
+          <div class="icon">🌞</div>
+          <div class="title">Exposición al sol moderada</div>
+          <div class="text">Permite que tu gato tome sol de forma segura para ayudar a la síntesis de vitamina D.</div>
+        </div>
+        
+        <div class="card">
+          <div class="icon">🚿</div>
+          <div class="title">Baños ocasionales</div>
+          <div class="text">Baña a tu gato solo cuando sea necesario para evitar estrés y proteger su piel.</div>
+        </div>
+        
+        <div class="card">
+          <div class="icon">🎾</div>
+          <div class="title">Ejercicio diario</div>
+          <div class="text">Motívalo a jugar para mantener un peso saludable y prevenir problemas de salud.</div>
+        </div>
+        
+        <div class="card">
+          <div class="icon">🛏️</div>
+          <div class="title">Zona de descanso cómoda</div>
+          <div class="text">Proporciónale un lugar tranquilo y suave donde pueda dormir y sentirse seguro.</div>
+        </div>
+        
+        <div class="card">
+          <div class="icon">🧴</div>
+          <div class="title">Cuidado con productos tóxicos</div>
+          <div class="text">Evita que tenga contacto con plantas, alimentos o químicos que puedan ser dañinos.</div>
+        </div>
+        <div class="card">
+          <div class="icon">🧹</div>
+          <div class="title">Limpieza del ambiente</div>
+          <div class="text">Mantén su espacio limpio para evitar enfermedades y pulgas.</div>
+        </div>
+        
+        <div class="card">
+          <div class="icon">📅</div>
+          <div class="title">Control de peso</div>
+          <div class="text">Revisa regularmente su peso para evitar obesidad y problemas asociados.</div>
+        </div>
+        
+        <div class="card">
+          <div class="icon">🩹</div>
+          <div class="title">Atención a heridas</div>
+          <div class="text">Revisa y limpia cualquier herida para evitar infecciones.</div>
+        </div>
+        
+        <div class="card">
+          <div class="icon">💤</div>
+          <div class="title">Sueño adecuado</div>
+          <div class="text">Asegura que tu gato duerma lo suficiente para su salud física y mental.</div>
+        </div>
+        
+        <!-- ... todas las demás tarjetas ... -->
+      </div>
+    </section>
+  
+    <!-- otras secciones -->
+  
+    <!-- Aquí justo antes de cerrar body, colocas el script -->
+    <script>
+      document.querySelectorAll(".card .icon").forEach(icon => {
+        icon.addEventListener("click", () => {
+          const text = icon.parentElement.querySelector(".text");
+          text.classList.toggle("visible");
+        });
+      });
+    </script>
+  </body>
+  
+
+  <section id="curiosidades">
+    <h2>Curiosidades Felinas</h2>
+    <p id="curiosidad-aleatoria">¡Haz clic en el botón para descubrir una curiosidad!</p>
+    <button id="btn-curiosidad">Mostrar curiosidad aleatoria</button>
+  </section>
+
+<!-- ... todo el código previo sin cambios ... -->
+
+<section id="interaccion">
+  <h2>Interactúa con Gatopedia</h2>
+  <p>Responde estas preguntas y descubre cuál gato es ideal para ti:</p>
+  <form id="cuestionario">
+    <ol>
+      <li>
+        ¿Prefieres un gato muy activo o tranquilo?
+        <br />
+        <label><input type="radio" name="actividad" value="activo" required /> Activo</label>
+        <label><input type="radio" name="actividad" value="tranquilo" /> Tranquilo</label>
+      </li>
+      <li>
+        ¿Te gustan los gatos que maúllan mucho?
+        <br />
+        <label><input type="radio" name="vocal" value="sí" required /> Sí</label>
+        <label><input type="radio" name="vocal" value="no" /> No</label>
+      </li>
+      <li>
+        ¿Tienes alergias al pelo de gato?
+        <br />
+        <label><input type="radio" name="alergia" value="sí" required /> Sí</label>
+        <label><input type="radio" name="alergia" value="no" /> No</label>
+      </li>
+      <li>
+        ¿Prefieres un gato de pelo largo o corto?
+        <br />
+        <label><input type="radio" name="pelaje" value="largo" required /> Largo</label>
+        <label><input type="radio" name="pelaje" value="corto" /> Corto</label>
+      </li>
+      <li>
+        ¿Vives en un espacio pequeño o amplio?
+        <br />
+        <label><input type="radio" name="espacio" value="pequeño" required /> Pequeño</label>
+        <label><input type="radio" name="espacio" value="amplio" /> Amplio</label>
+      </li>
+      <li>
+        ¿Quieres un gato independiente o cariñoso?
+        <br />
+        <label><input type="radio" name="caracter" value="independiente" required /> Independiente</label>
+        <label><input type="radio" name="caracter" value="cariñoso" /> Cariñoso</label>
+      </li>
+      <li>
+        ¿Tienes niños en casa?
+        <br />
+        <label><input type="radio" name="ninos" value="sí" required /> Sí</label>
+        <label><input type="radio" name="ninos" value="no" /> No</label>
+      </li>
+      <li>
+        ¿Cuánto tiempo puedes dedicarle a su cuidado?
+        <br />
+        <label><input type="radio" name="tiempo" value="mucho" required /> Mucho</label>
+        <label><input type="radio" name="tiempo" value="poco" /> Poco</label>
+      </li>
+      <li>
+        ¿Te gustan los gatos exóticos o más comunes?
+        <br />
+        <label><input type="radio" name="estilo" value="exotico" required /> Exóticos</label>
+        <label><input type="radio" name="estilo" value="clasico" /> Clásicos</label>
+      </li>
+      <li>
+        ¿Buscas un gato grande o pequeño?
+        <br />
+        <label><input type="radio" name="tamaño" value="grande" required /> Grande</label>
+        <label><input type="radio" name="tamaño" value="pequeño" /> Pequeño</label>
+      </li>
+    </ol>
+    <button type="submit">Descubrir mi gato ideal</button>
+  </form>
+  <div id="resultado-gato" style="margin-top: 20px; font-weight: bold;"></div>
+</section>
+
+<script>
+  document.getElementById('cuestionario').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const respuestas = Object.fromEntries(new FormData(e.target));
+
+    let sugerencia = "British Shorthair"; // Por defecto
+
+    if (respuestas.alergia === "sí") {
+      sugerencia = "Sphynx";
+    } else if (
+      respuestas.actividad === "activo" &&
+      respuestas.vocal === "sí" &&
+      respuestas.pelaje === "corto"
+    ) {
+      sugerencia = "Siamés";
+    } else if (
+      respuestas.caracter === "cariñoso" &&
+      respuestas.pelaje === "largo" &&
+      respuestas.tamaño === "grande"
+    ) {
+      sugerencia = "Ragdoll";
+    } else if (
+      respuestas.tamaño === "grande" &&
+      respuestas.actividad === "activo"
+    ) {
+      sugerencia = "Maine Coon";
+    } else if (
+      respuestas.vocal === "no" &&
+      respuestas.pelaje === "largo"
+    ) {
+      sugerencia = "Persa";
+    } else if (
+      respuestas.estilo === "exotico" &&
+      respuestas.pelaje === "corto"
+    ) {
+      sugerencia = "Exótico de Pelo Corto";
+    } else if (
+      respuestas.actividad === "activo" &&
+      respuestas.caracter === "independiente"
+    ) {
+      sugerencia = "Abisinio";
+    } else if (
+      respuestas.vocal === "sí" &&
+      respuestas.estilo === "exotico"
+    ) {
+      sugerencia = "Oriental de Pelo Corto";
+    } else if (
+      respuestas.ninos === "sí" &&
+      respuestas.caracter === "cariñoso"
+    ) {
+      sugerencia = "Scottish Fold";
+    }
+
+    document.getElementById('resultado-gato').innerText =
+      `Tu gato ideal es: 🐱 ${sugerencia}`;
+  });
+</script>
+
+  <!-- Modal para mostrar información -->
+  <div id="modal" class="modal" onclick="cerrarModal(event)">
+    <div class="modal-content">
+      <span class="close-btn" onclick="cerrarModal(event)">&times;</span>
+      <h3 id="modal-titulo"></h3>
+      <p id="modal-descripcion"></p>
+    </div>
+  </div>
+
+  <script>
+    function showSection(seccionId) {
+      const secciones = document.querySelectorAll('section');
+      secciones.forEach(sec => {
+        sec.classList.remove('active');
+      });
+      const seccion = document.getElementById(seccionId);
+      if (seccion) seccion.classList.add('active');
+    }
+
+    function mostrarInfo(titulo, descripcion) {
+      document.getElementById('modal-titulo').textContent = titulo;
+      document.getElementById('modal-descripcion').textContent = descripcion;
+      document.getElementById('modal').classList.add('active');
+    }
+
+    function cerrarModal(e) {
+      if (
+        e.target.classList.contains('modal') ||
+        e.target.classList.contains('close-btn')
+      ) {
+        document.getElementById('modal').classList.remove('active');
+      }
+    }
+
+    const curiosidades = [
+  "Los gatos pueden girar sus orejas 180 grados.",
+  "Un gato puede saltar hasta 5 veces su altura.",
+  "Los gatos tienen 5 dedos en las patas delanteras y 4 en las traseras.",
+  "El ronroneo de un gato puede ayudar a reducir el estrés en humanos.",
+  "Los gatos duermen entre 12 y 16 horas al día.",
+  "Los gatos tienen un sentido del olfato 14 veces más desarrollado que los humanos.",
+  "Los bigotes de un gato son tan sensibles que pueden detectar cambios mínimos en el aire.",
+  "Un gato puede correr a velocidades de hasta 48 km/h.",
+  "Los gatos usan sus colas para mantener el equilibrio cuando caminan sobre superficies estrechas.",
+  "El gato más longevo registrado vivió 38 años.",
+  "Los gatos no pueden saborear lo dulce debido a una mutación genética.",
+  "Un gato puede emitir más de 100 sonidos vocales diferentes, mientras que un perro solo unos 10.",
+  "Los gatos domésticos comparten más del 95% de su ADN con los tigres.",
+  "El corazón de un gato late casi el doble que el de un humano, alrededor de 110 a 140 latidos por minuto.",
+  "Los gatos marcan su territorio frotando la cara, liberando feromonas faciales."
+];
+
+
+    document.getElementById('btn-curiosidad').addEventListener('click', () => {
+      const indice = Math.floor(Math.random() * curiosidades.length);
+      document.getElementById('curiosidad-aleatoria').innerText = curiosidades[indice];
+    });
+  </script>
+</body>
+</html>
